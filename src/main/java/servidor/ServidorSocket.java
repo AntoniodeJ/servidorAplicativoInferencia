@@ -10,7 +10,7 @@ public class ServidorSocket extends Thread{
     ServerSocket serverSocket = null;
     Socket socket = null;
     PrintStream saida = null;
-    static int port = 5555;//porta para comunicacao.
+    static int port;//porta para comunicacao.
     BufferedReader entrada  = null;
 
 
@@ -20,9 +20,10 @@ public class ServidorSocket extends Thread{
 
     public static void main(String args[]) {
         try {
+        	port = Integer.parseInt(System.getenv("PORT"));
             ServerSocket serverSocket = new ServerSocket(port);
             while(true) {
-                System.out.println("Aguardando conexão...");
+                System.out.println("Aguardando conex�o na porta: "+port);
                 Socket socket = serverSocket.accept();//aguarda conexao com o cliente.
                 System.out.println("Conexão Estabelecida.");
                 Thread t = new ServidorSocket(socket);
