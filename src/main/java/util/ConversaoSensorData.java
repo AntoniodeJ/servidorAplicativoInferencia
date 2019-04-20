@@ -18,13 +18,11 @@ public class ConversaoSensorData {
         String sensorTipo;
         float x,y,z;
         if (string != null){
-            if(string[0].equals("DADOS")){
-                sensorTipo = string[1];
-                x = Float.parseFloat(string[2]);
-                y = Float.parseFloat(string[3]);
-                z = Float.parseFloat(string[4]);
-                sensorData = new SensorData(sensorTipo,x,y,z);
-            }
+			sensorTipo = string[0];
+			x = Float.parseFloat(string[1]);
+			y = Float.parseFloat(string[2]);
+			z = Float.parseFloat(string[3]);
+			sensorData = new SensorData(sensorTipo,x,y,z);
         }
         return sensorData;
     }

@@ -20,9 +20,8 @@ public class BD {
 	
 	public void close(){
 
-	      try {
-	    	  //stmt.close();
-	    	  conn.close();
+		try {
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -30,25 +29,25 @@ public class BD {
 	}
 	
 	public void connect(){
-		  
-		   try{
-		      //STEP 2: Register JDBC driver
-		      Class.forName(JDBC_DRIVER);
 
-		      //STEP 3: Open a connection
-		      System.out.println("Conectando ao BD");
-		      conn = DriverManager.getConnection(DB_URL,USER,PASS);
-		   }catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }
+		try{
+			//STEP 2: Register JDBC driver
+			Class.forName(JDBC_DRIVER);
+
+			//STEP 3: Open a connection
+			System.out.println("Conectando ao BD");
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}
 	}
 
 	public boolean saveTreinamento(String nome, String atividade,
-			float mediaAccelX, float mediaAccelY, float mediaAccelZ,
-			float rmsAccelX, float rmsAccelY, float rmsAccelZ,
-			float mediaGyroX, float mediaGyroY, float mediaGyroZ,
-			float rmsGyroX, float rmsGyroY, float rmsGyroZ){
+		float mediaAccelX, float mediaAccelY, float mediaAccelZ,
+		float rmsAccelX, float rmsAccelY, float rmsAccelZ,
+		float mediaGyroX, float mediaGyroY, float mediaGyroZ,
+		float rmsGyroX, float rmsGyroY, float rmsGyroZ){
 		if(conn==null){
 			return false;
 		}
@@ -72,7 +71,7 @@ public class BD {
 			preparedStatement.setFloat(12, rmsGyroX);
 			preparedStatement.setFloat(13, rmsGyroY);
 			preparedStatement.setFloat(14, rmsGyroZ);
-			
+
 			preparedStatement .executeUpdate();
 			return true;
 		} catch (SQLException e) {

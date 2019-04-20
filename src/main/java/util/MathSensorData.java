@@ -127,7 +127,7 @@ public class MathSensorData {
         return new SensorData("TYPE_GYROSCOPE",rmsX,rmsY,rmsZ);
     }
 
-    // NÃ£o pega extremidades
+    // Não pega extremidades
     public static void encontrarPicos(ArrayList<Float> listaEntrada, ArrayList<Float> listaSaida){
 
         int atual = 0;
