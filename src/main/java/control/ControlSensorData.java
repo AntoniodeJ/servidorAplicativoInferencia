@@ -67,11 +67,11 @@ public class ControlSensorData {
         }
 
         if(!inferencia){
-            /*ControlBD controlDB = new ControlBD();
+            ControlBD controlDB = new ControlBD();
             controlDB.connect();
             controlDB.saveTreinamento
             (nomeUsuario, atividade, mediaAccel, rmsAccel, mediaGyro, rmsGyro);
-            controlDB.close();*/            
+            controlDB.close();
         }else{
             // Realiza inferencia e salva no BD de resultados
         }
