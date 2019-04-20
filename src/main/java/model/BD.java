@@ -9,12 +9,12 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 public class BD {
-	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
-	private static final String DB_URL = "jdbc:mysql://localhost/inferenciaAtividades?useTimezone=true&serverTimezone=UTC";
+	//private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
+	//private static final String DB_URL = "jdbc:mysql://localhost/inferenciaAtividades?useTimezone=true&serverTimezone=UTC";
 
 	   //  Database credentials
-	private static final String USER = "root";
-	private static final String PASS = "mono";
+	//private static final String USER = "root";
+	//private static final String PASS = "mono";
 	private Connection conn = null;
 	private Statement stmt = null;
 	
@@ -32,11 +32,11 @@ public class BD {
 
 		try{
 			//STEP 2: Register JDBC driver
-			Class.forName(JDBC_DRIVER);
+			//Class.forName(JDBC_DRIVER);
 
 			//STEP 3: Open a connection
 			System.out.println("Conectando ao BD");
-			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			conn = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
