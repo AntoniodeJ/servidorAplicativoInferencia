@@ -12,7 +12,7 @@ import com.sun.net.httpserver.HttpHandler;
 public class RootHandler implements HttpHandler {
 
 	public void handle(HttpExchange exchange) throws IOException {
-		String response = "<h1>Página funcionando, mas você não deveria estar aqui</h1>";
+		String response = "<h1>Pagina funcionando, mas voce nao deveria estar aqui</h1>";
         exchange.sendResponseHeaders(200, response.length());
         OutputStream os = exchange.getResponseBody();
                        
