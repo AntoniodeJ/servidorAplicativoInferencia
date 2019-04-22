@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import java.util.Vector;
 
 public class TreinoWeka {
-	public final static String FILENAME = "/tmp/exemplo.save";
+	public final static String FILENAME = "exemplo.save";
 
 	public void train(){
 
