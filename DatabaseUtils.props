@@ -29,8 +29,10 @@ jdbcURL=jdbc:mysql://localhost:3306/inferenciaAtividades
 # timestamp, getTime() = 11;  --> date
 varchar=0
 float=7
+float8=7
 INT=5
 int=5
+int4=5
 
 
 # other options
