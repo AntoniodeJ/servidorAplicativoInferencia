@@ -6,44 +6,75 @@ import weka.core.*;
 import weka.experiment.*;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Vector;
 
 public class TreinoWeka {
 	public final static String FILENAME = "/tmp/exemplo.save";
 
-	  public final static String URL = "jdbc:mysql://localhost/inferenciaAtividades";
+	public void train(){
 
-	  public final static String USER = "root";
+		URI dbUri = null;
+		try {
+			dbUri = new URI(System.getenv("DATABASE_URL"));
+		} catch (URISyntaxException e) {
+			System.out.println("Weka não conseguiu acessar a variável de ambiente");
+			e.printStackTrace();
+		}
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() +
+				':' + dbUri.getPort() + dbUri.getPath();
 
-	  public final static String PASSWORD = "mono";
-	  
-	  public void train() throws Exception {
-	    System.out.println("Training...");
+		System.out.println("Training...");
 
-	    // load training data from database
-	    InstanceQuery query = new InstanceQuery();
-	    query.setDatabaseURL(URL);
-	    query.setUsername(USER);
-	    query.setPassword(PASSWORD);
-	    query.setQuery("select * from treinamento");
-	    Instances data = query.retrieveInstances();
-	    data.setClassIndex(3);
+		// load training data from database
+		InstanceQuery query = null;
+		try {
+			query = new InstanceQuery();
+		} catch (Exception e) {
+			System.out.println("Weka não conseguiu criar query");
+			e.printStackTrace();
+		}
+		query.setDatabaseURL(dbUrl);
+		query.setUsername(username);
+		query.setPassword(password);
+		query.setQuery("select * from treinamento");
+		Instances data = null;
+		try {
+			data = query.retrieveInstances();
+		} catch (Exception e) {
+			System.out.println("Weka não conseguiu executar query");
+			e.printStackTrace();
+		}
+		data.setClassIndex(3);
 
-	    // train M5P
-	    RandomForest cl = new RandomForest();
-	    // further options...
-	    cl.buildClassifier(data);
+		// train RandomForest
+		RandomForest cl = new RandomForest();
+		// further options...
+		try {
+			cl.buildClassifier(data);
+		} catch (Exception e) {
+			System.out.println("Weka não conseguiu construir classificador");
+			e.printStackTrace();
+		}
 
-	    // save model + header
-	    Vector v = new Vector();
-	    v.add(cl);
-	    v.add(new Instances(data, 0));
-	    SerializationHelper.write(FILENAME, v);
+		// save model + header
+		Vector v = new Vector();
+		v.add(cl);
+		v.add(new Instances(data, 0));
+		try {
+			SerializationHelper.write(FILENAME, v);
+		} catch (Exception e) {
+			System.out.println("Weka não conseguiu salvar arquivo");
+			e.printStackTrace();
+		}
 
-	    System.out.println("Training finished!");
-	  }
+		System.out.println("Training finished!");
+	}
 
-/*	  
+	/*	  
 	  public void predict() throws Exception {
 	    System.out.println("Predicting...");
 
@@ -104,12 +135,12 @@ public class TreinoWeka {
 
 	    System.out.println("Predicting finished!");
 	  }
-*/
-	  
-	  public static void main(String[] args) throws Exception {
-		    TreinoWeka m = new TreinoWeka();
-		    m.train();
-		    //m.predict();
-		  }
+	 */
+
+	public static void main(String[] args) throws Exception {
+		TreinoWeka m = new TreinoWeka();
+		m.train();
+		//m.predict();
+	}
 
 }
