@@ -24,7 +24,7 @@ public class ControlMensagemHTTP {
 			atividade = "?";
 			controlSensorData = new ControlSensorData(nome, true, atividade);
 		}else {
-			System.out.println("O tipo não foi definido");
+			System.out.println("O tipo nï¿½o foi definido");
 			return false;
 		}		
 		
@@ -32,7 +32,7 @@ public class ControlMensagemHTTP {
 		mensagemSensorsData = (String) parametros.get("SensorsData");
         String[] sensorsData = mensagemSensorsData.split("<SD>");
         for (String sensorData : sensorsData) {
-        	System.out.println(sensorData);
+        	//System.out.println(sensorData);
         	controlSensorData.addSensorData
         	(util.ConversaoSensorData.gerarSensorDataPorVetorString
         			(sensorData.split(";")));

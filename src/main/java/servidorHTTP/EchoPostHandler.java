@@ -22,7 +22,7 @@ public class EchoPostHandler implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
         String query = br.readLine();
-        System.out.println(query);
+        //System.out.println(query);
         ParseQuery.execute(query, parameters);
         
         if(!parameters.isEmpty()) {
@@ -31,8 +31,9 @@ public class EchoPostHandler implements HttpHandler {
 
         // send response
         String response = "";
-        for (String key : parameters.keySet())
-                 response += key + " = " + parameters.get(key) + "\n";
+        response = "RECEBIDO";
+        //for (String key : parameters.keySet())
+        //         response += key + " = " + parameters.get(key) + "\n";
         exchange.sendResponseHeaders(200, response.length());
         OutputStream os = exchange.getResponseBody();
         os.write(response.toString().getBytes());
