@@ -26,7 +26,8 @@ public class TreinoWeka {
 		String password = dbUri.getUserInfo().split(":")[1];
 		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() +
 				':' + dbUri.getPort() + dbUri.getPath();
-
+		
+				
 		System.out.println("Training...");
 
 		// load training data from database
@@ -48,7 +49,9 @@ public class TreinoWeka {
 			System.out.println("Weka não conseguiu executar query");
 			e.printStackTrace();
 		}
-		data.setClassIndex(3);
+		data.deleteAttributeAt(0);
+		data.deleteAttributeAt(0);
+		data.setClassIndex(0);
 
 		// train RandomForest
 		RandomForest cl = new RandomForest();
